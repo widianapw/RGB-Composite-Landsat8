@@ -360,9 +360,6 @@ class rgb:
                 if self.latEndCrop > self.latEndDefault or self.latEndCrop < self.latStartDefault:
                     issue.append("Latitude end crop melebihi limit")
                 if issue:
-                    self.progress = wx.ProgressDialog("RGB Composite in progress", "please wait...", style=wx.PD_SMOOTH|wx.PD_AUTO_HIDE)
-                    self.listener.showProgress()
-                    self.progress.Update(100)
                     issueBuf = ""
                     for item in issue:
                         issueBuf += item + "\n"
@@ -370,6 +367,9 @@ class rgb:
                     issue = []
                     self.listener.showErrorMessage("Crop failed\n\n" + issueBuf) 
                 else:
+                    self.listener.showProgress()
+                    percent = 30
+                    self.listener.progress.Update(percent)
                     self.cols = r_link.RasterXSize
                     self.rows = r_link.RasterYSize
                     bands = r_link.RasterCount
@@ -417,6 +417,9 @@ class rgb:
                     b = (self.norm(cropped_b.astype(np.float)) * blue_mult) + blue_add
             
             else :
+                self.listener.showProgress()
+                percent = 30
+                self.listener.progress.Update(percent)
                 r = (self.norm(r_link.ReadAsArray().astype(np.float)))
                 g = (self.norm(g_link.ReadAsArray().astype(np.float)))
                 b = (self.norm(b_link.ReadAsArray().astype(np.float)))

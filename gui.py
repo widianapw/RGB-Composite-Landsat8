@@ -329,9 +329,6 @@ class MyFrame5 ( wx.Frame ):
 		print(latEnd)
 		
 		if self.rgb.isOpenDir and self.rgb.isValidateSelection:
-			self.showProgress()
-			percent = 30
-			self.progress.Update(percent)
 			self.rgb.ProccessRGBCrop(lonStart, lonEnd, latStart, latEnd)
 		elif self.rgb.isOpenDir == False:
 			self.showErrorMessage("Direktori Folder Belum Terisi !")
@@ -436,7 +433,7 @@ class MyFrame5 ( wx.Frame ):
 		return image
 	
 	def OnRGBFinished(self, result, selection):
-		
+		# self.showProgress()
 		percent = 80
 		self.progress.Update(percent)
 		# sm.toimage(result,cmin=np.percentile(result,2),cmax=np.percentile(rgb,98)).save('RGB.png')
